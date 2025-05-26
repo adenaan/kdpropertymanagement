@@ -5,8 +5,8 @@ backend:
 media_library:
   name: cloudinary
   config:
-    cloud_name: your_cloudinary_cloud_name
-    api_key: your_cloudinary_api_key
+    cloud_name: dkcafy6wg
+    api_key: 474637612327447
 
 media_folder: "public/uploads"
 public_folder: "/uploads"
