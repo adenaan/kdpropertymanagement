@@ -1,93 +1,86 @@
-// pages/property/[slug].js
+import fs from 'fs'
+import path from 'path'
+import { useRouter } from 'next/router'
+import { slugify } from '../../lib/slugify'
 
-import fs from 'fs';
-import path from 'path';
-import Head from 'next/head';
+export default function PropertyPage({ property }) {
+  const router = useRouter()
 
-// Helper to sanitize slugs consistently (no spaces, all lowercase, dashes)
-const sanitizeSlug = (str) =>
-  str.toLowerCase().replace(/\s+/g, '-');
+  if (router.isFallback) {
+    return <div>Loading...</div>
+  }
+
+  if (!property) {
+    return <div>Property not found</div>
+  }
+
+  return (
+    <div>
+      <h1>{property.title}</h1>
+      <p>Location: {property.location}</p>
+      <p>Price per night: ${property.price}</p>
+      <p>{property.description}</p>
+      {/* Show images if available */}
+      {property.images && property.images.length > 0 && (
+        <div>
+          {property.images.map(({ image }, i) => (
+            <img key={i} src={image} alt={`Image ${i + 1} of ${property.title}`} style={{ maxWidth: '300px' }} />
+          ))}
+        </div>
+      )}
+      {/* Add more fields like Airbnb and Booking.com links if needed */}
+    </div>
+  )
+}
 
 export async function getStaticPaths() {
-  const propertiesDir = path.join(process.cwd(), 'content/properties');
-  const filenames = fs.readdirSync(propertiesDir);
+  const propertiesDir = path.join(process.cwd(), 'content', 'properties')
+  const filenames = fs.readdirSync(propertiesDir)
 
   const paths = filenames.map((filename) => {
-    const rawSlug = filename.replace(/\.json$/, '');
-    const slug = sanitizeSlug(rawSlug);
-    return { params: { slug } };
-  });
+    const filePath = path.join(propertiesDir, filename)
+    const fileContents = fs.readFileSync(filePath, 'utf8')
+    const data = JSON.parse(fileContents)
+    const slug = data.slug ? slugify(data.slug) : slugify(data.title)
 
-  return { paths, fallback: false };
+    return {
+      params: { slug },
+    }
+  })
+
+  return {
+    paths,
+    fallback: true, // or false if you want 404 on unknown
+  }
 }
 
 export async function getStaticProps({ params }) {
-  const propertiesDir = path.join(process.cwd(), 'content/properties');
+  const { slug } = params
+  const propertiesDir = path.join(process.cwd(), 'content', 'properties')
+  const filenames = fs.readdirSync(propertiesDir)
 
-  // Find the file matching sanitized slug
-  const filenames = fs.readdirSync(propertiesDir);
-  const file = filenames.find((filename) => {
-    return sanitizeSlug(filename.replace(/\.json$/, '')) === params.slug;
-  });
+  // Find file matching slug by slugifying file contents
+  const matchedFile = filenames.find((filename) => {
+    const filePath = path.join(propertiesDir, filename)
+    const fileContents = fs.readFileSync(filePath, 'utf8')
+    const data = JSON.parse(fileContents)
+    const fileSlug = data.slug ? slugify(data.slug) : slugify(data.title)
+    return fileSlug === slug
+  })
 
-  if (!file) {
-    return { notFound: true };
+  if (!matchedFile) {
+    return {
+      notFound: true,
+    }
   }
 
-  const filePath = path.join(propertiesDir, file);
-  const propertyData = JSON.parse(fs.readFileSync(filePath, 'utf8'));
+  const filePath = path.join(propertiesDir, matchedFile)
+  const fileContents = fs.readFileSync(filePath, 'utf8')
+  const property = JSON.parse(fileContents)
 
   return {
     props: {
-      property: propertyData,
+      property,
     },
-  };
-}
-
-export default function PropertyPage({ property }) {
-  if (!property) return <div>Property not found</div>;
-
-  return (
-    <>
-      <Head>
-        <title>{property.title}</title>
-      </Head>
-      <main>
-        <h1>{property.title}</h1>
-        <p><strong>Location:</strong> {property.location}</p>
-        <p><strong>Price per night:</strong> ${property.price}</p>
-        <p>{property.description}</p>
-        <p>
-          <a href={property.airbnbLink} target="_blank" rel="noopener noreferrer">
-            Airbnb Listing
-          </a>
-          {' | '}
-          <a href={property.bookingLink} target="_blank" rel="noopener noreferrer">
-            Booking.com Listing
-          </a>
-        </p>
-        <h3>Amenities</h3>
-        <ul>
-          {property.amenities && property.amenities.map((item, idx) => (
-            <li key={idx}>{item}</li>
-          ))}
-        </ul>
-        <h3>Images</h3>
-        <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
-          {property.images && property.images.length > 0 ? (
-            property.images.map(({ image }, idx) => (
-              <img
-                key={idx}
-                src={image}
-                alt={`${property.title} image ${idx + 1}`}
-                style={{ maxWidth: '200px', borderRadius: '8px' }}
-              />
-            ))
-          ) : (
-            <p>No images available.</p>
-          )}
-        </div>
-      </main>
-    </>
-  );
+  }
 }
