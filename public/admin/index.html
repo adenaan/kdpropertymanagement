@@ -3,18 +3,21 @@
 <head>
   <meta charset="utf-8" />
   <title>Content Manager</title>
+  <script>
+    window.CMS_MANUAL_INIT = true;
+  </script>
+  <script src="https://unpkg.com/decap-cms@3.6.3/dist/decap-cms.js"></script>
 </head>
 <body>
   <div id="nc-root"></div>
 
-  <script src="https://unpkg.com/decap-cms@3.6.3/dist/decap-cms.js"></script>
-
   <script>
-    window.CMS_MANUAL_INIT = true;
-
     window.addEventListener('DOMContentLoaded', () => {
       if (typeof CMS !== 'undefined') {
+        console.log('Initializing Decap CMS...');
         CMS.init();
+      } else {
+        console.error('CMS is not loaded');
       }
     });
   </script>
