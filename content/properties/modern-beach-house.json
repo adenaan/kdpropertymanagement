@@ -12,8 +12,7 @@
   ],
   "title": "Modern Beach House",
   "images": [
-    "/uploads/beach-house1.jpg",
-    "/uploads/beach-house2.jpg"
+    "https://res.cloudinary.com/dkcafy6wg/image/upload/v1748265257/cld-sample-5.jpg"
   ],
   "description": "A stunning beach house with ocean views, ideal for families or couples."
 }
