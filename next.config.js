@@ -5,4 +5,5 @@ const nextConfig = {
   // other settings if needed
 };
 
-export default nextConfig;
+module.exports = nextConfig;
+
