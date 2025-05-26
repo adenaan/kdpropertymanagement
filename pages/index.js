@@ -1,5 +1,5 @@
 import fs from 'fs'
-iimport Link from 'next/link'
+import Link from 'next/link'
 import { slugify } from '../lib/slugify'
 import path from 'path'
 
