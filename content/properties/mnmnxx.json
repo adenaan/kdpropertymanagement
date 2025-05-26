@@ -1,9 +1,15 @@
 {
-  "title": "mnmnxx",
-  "slug": "nsnms",
-  "location": "bsbmns",
-  "description": "test",
-  "price": 200,
   "airbnbLink": "www.test.com",
-  "bookingLink": "www.test.com"
+  "price": 200,
+  "slug": "nsnms",
+  "bookingLink": "www.test.com",
+  "location": "bsbmns",
+  "amenities": [
+    "pools"
+  ],
+  "title": "mnmnxx",
+  "images": [
+    "https://res.cloudinary.com/dkcafy6wg/image/upload/v1748265256/samples/cup-on-a-table.jpg"
+  ],
+  "description": "test"
 }
