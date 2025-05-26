@@ -1,14 +1,19 @@
 {
-  "title": "Modern Beach House",
-  "slug": "modern-beach-house",
-  "location": "Cape Town, South Africa",
-  "price": 150,
-  "description": "A stunning beach house with ocean views, ideal for families or couples.",
   "airbnbLink": "https://airbnb.com/modern-beach-house",
+  "price": 200,
+  "slug": "modern-beach-house",
   "bookingLink": "https://booking.com/modern-beach-house",
-  "amenities": ["WiFi", "Air Conditioning", "Pool", "Private Parking"],
+  "location": "Cape Town, South Africa",
+  "amenities": [
+    "WiFi",
+    "Air Conditioning",
+    "Pool",
+    "Private Parking"
+  ],
+  "title": "Modern Beach House",
   "images": [
     "/uploads/beach-house1.jpg",
     "/uploads/beach-house2.jpg"
-  ]
+  ],
+  "description": "A stunning beach house with ocean views, ideal for families or couples."
 }
