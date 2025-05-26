@@ -1,7 +1,6 @@
 import fs from 'fs'
-import path from 'path'
-import Link from 'next/link'
-import { slugify } from '../lib/slugify'import fs from 'fs'
+iimport Link from 'next/link'
+import { slugify } from '../lib/slugify'
 import path from 'path'
 
 export default function Property({ property }) {
