@@ -1,0 +1,31 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_library:
+  name: cloudinary
+  config:
+    cloud_name: your_cloudinary_cloud_name
+    api_key: your_cloudinary_api_key
+
+media_folder: "public/uploads"
+public_folder: "/uploads"
+
+collections:
+  - name: "property"
+    label: "Properties"
+    folder: "content/properties"
+    extension: "json"
+    format: "json"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Slug", name: "slug", widget: "string" }
+      - { label: "Location", name: "location", widget: "string" }
+      - { label: "Price per night", name: "price", widget: "number" }
+      - { label: "Description", name: "description", widget: "text" }
+      - { label: "Airbnb Link", name: "airbnbLink", widget: "string" }
+      - { label: "Booking.com Link", name: "bookingLink", widget: "string" }
+      - { label: "Amenities", name: "amenities", widget: "list" }
+      - { label: "Images", name: "images", widget: "list", field: { label: "Image", name: "image", widget: "image" } }
