@@ -2,6 +2,9 @@ backend:
   name: github
   repo: adenaan/kdpropertymanagement
   branch: main
+  client_id: Ov23liq50i8NvVc14UdD
+  base_url: https://api.netlify.com
+  auth_endpoint: /auth
   
 
 
