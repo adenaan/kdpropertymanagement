@@ -1,6 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: 'export', // 🔥 This replaces next export
+  output: 'export',
+  // other Next.js config options...
 };
 
-module.exports = nextConfig;
+export default nextConfig;
