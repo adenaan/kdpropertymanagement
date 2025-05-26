@@ -3,6 +3,6 @@ command = "npm run build"
 publish = "out"
   
 [[redirects]]
-  from = "/admin"
-  to = "/admin/"
-  status = 200
+from = "/property"
+to = "/property/[slug]"
+status = 301
