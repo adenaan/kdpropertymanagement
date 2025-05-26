@@ -2,8 +2,7 @@ backend:
   name: github
   repo: adenaan/kdpropertymanagement
   branch: main
-  auth_type: implicit
-  app_id: Ov23liq50i8NvVc14UdD
+  
 
 
 media_library:
