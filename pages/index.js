@@ -1,20 +1,20 @@
-import fs from 'fs'
-import path from 'path'
 import { slugify } from '../lib/slugify'
 import Link from 'next/link'
 
 export async function getStaticProps() {
-  const fs = require('fs');
-  const path = require('path');
+  const fs = await import('fs/promises');
+  const path = await import('path');
 
   const propertiesDir = path.join(process.cwd(), 'content/properties');
-  const filenames = fs.readdirSync(propertiesDir);
+  const filenames = await fs.readdir(propertiesDir);
 
-  const properties = filenames.map((filename) => {
-    const filePath = path.join(propertiesDir, filename);
-    const fileContents = fs.readFileSync(filePath, 'utf8');
-    return JSON.parse(fileContents);
-  });
+  const properties = await Promise.all(
+    filenames.map(async (filename) => {
+      const filePath = path.join(propertiesDir, filename);
+      const fileContents = await fs.readFile(filePath, 'utf8');
+      return JSON.parse(fileContents);
+    })
+  );
 
   return {
     props: {
